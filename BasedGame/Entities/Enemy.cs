@@ -2,7 +2,7 @@
 
 namespace BasedGame.Entities;
 
-internal class Enemy : Entity
+internal class Player : Entity
 {
     public ActorComponent ActorComponent { get; } = new();
 }
