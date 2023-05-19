@@ -8,7 +8,7 @@ internal class Game
     {
         while (true)
         {
-            Console.WriteLine(State.Test);
+            Console.WriteLine(State.Player.Health);
         }
     }
 }

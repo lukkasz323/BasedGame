@@ -2,5 +2,5 @@
 
 internal class GameState
 {
-    internal string Test { get; set; } = "testing!";
+    internal Player Player { get; set; } = new();
 }
