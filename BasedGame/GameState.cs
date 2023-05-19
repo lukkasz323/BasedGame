@@ -1,4 +1,6 @@
-﻿namespace BasedGame;
+﻿using BasedGame.Entities;
+
+namespace BasedGame;
 
 internal class GameState
 {

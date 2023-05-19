@@ -21,8 +21,8 @@ internal class Game
 
         ConsoleKeyInfo input = Console.ReadKey(true);
 
-        State.Player.Health -= 1;
-        if (State.Player.Health <= 0)
+        State.Player.ActorComponent.Health -= 1;
+        if (State.Player.ActorComponent.Health <= 0)
         {
             shouldGameContinue = false;
         }
@@ -32,6 +32,6 @@ internal class Game
 
     private void Draw()
     {
-        Console.WriteLine(State.Player.Health);
+        Console.WriteLine(State.Player.ActorComponent.Health);
     }
 }
