@@ -2,7 +2,10 @@
 
 namespace BasedGame.Entities;
 
-internal class Enemy : Entity
+internal class Player : Entity
 {
-    public ActorComponent ActorComponent { get; } = new();
+    internal CombatComponent Combat { get; } = new();
+    internal int Level { get; set; }
+    internal int Xp { get; set; }
+    internal int MaxXp { get; set; }
 }

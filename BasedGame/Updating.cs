@@ -15,8 +15,8 @@ internal static class Updating
 
     private static bool Debug(GameState state)
     {
-        state.Enemy.ActorComponent.Attack(state.Player.ActorComponent);
-        if (state.Player.ActorComponent.Health <= 0)
+        state.Enemy.Combat.Attack(state.Player.Combat);
+        if (state.Player.Combat.Health <= 0)
         {
             return false;
         }
