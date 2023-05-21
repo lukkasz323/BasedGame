@@ -15,7 +15,9 @@ internal static class Updating
 
     private static bool Debug(GameState state)
     {
+        state.Player.Combat.Attack(state.Enemy.Combat);
         state.Enemy.Combat.Attack(state.Player.Combat);
+
         if (state.Player.Combat.Health <= 0)
         {
             return false;

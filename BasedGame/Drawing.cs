@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using BasedGame.Components;
+using BasedGame.Entities;
 
 namespace BasedGame;
 
@@ -29,13 +30,29 @@ internal static class Drawing
         static void DrawScene(GameState state)
         {
             DrawHUD(state);
+            DrawBattle(state);
 
             static void DrawHUD(GameState state)
             {
                 DrawLine(1, 0, state.Settings.Width - 2, '=');
-                Draw(3, 2, $"[ Level: {state.Player.Level} | XP: {state.Player.Xp}/{state.Player.MaxXp} ]");
+                Draw(5, 2, $"[ Level: {state.Player.Level} | XP: {state.Player.Xp}/{state.Player.MaxXp} ]");
                 DrawLine(1, 4, state.Settings.Width - 2, '=');
                 DrawLine(1, state.Settings.Height - 2, state.Settings.Width - 2, '=');
+            }
+
+            static void DrawBattle(GameState state)
+            {
+                Draw(10, 6, "Player");
+                DrawCombatant(10, 7, state.Player.Combat);
+
+                Draw(30, 6, "Enemy");
+                DrawCombatant(30, 7, state.Enemy.Combat);
+            }
+
+            static void DrawCombatant(int x, int y, CombatComponent combat)
+            {
+                Draw(x, y, $"HP: {combat.Health}/{combat.MaxHealth}");
+                Draw(x, y + 1, $"STR: {combat.Strength}");
             }
 
             static void DrawLine(int startX, int startY, int width, char ch)
