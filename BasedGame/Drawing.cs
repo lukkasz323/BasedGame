@@ -10,7 +10,10 @@ internal static class Drawing
         SyncAndClearConsole(state.Settings);
 
         DrawHUD(state);
-        DrawBattle(state);
+        if (state.Arena.IsVisible)
+        {
+            DrawArena(state);
+        }
 
         static void SyncAndClearConsole(GameSettings settings)
         {
@@ -37,15 +40,21 @@ internal static class Drawing
             DrawLine(1, state.Settings.Height - 2, state.Settings.Width - 2, '=');
         }
 
-        static void DrawBattle(GameState state)
+        static void DrawArena(GameState state)
         {
-            Draw(10, 6, "Player");
-            DrawCombatant(10, 8, state.Player.Combat);
+            Draw(10, 8, "Player");
+            DrawCombatant(10, 9, state.Player.Combat);
 
-            if (state.Battle != null)
+            if (state.Arena.Enemy != null)
             {
-                Draw(30, 6, "Enemy");
-                DrawCombatant(30, 8, state.Battle.EnemyCombat);
+                Draw(30, 8, "Enemy");
+                DrawCombatant(30, 9, state.Arena.Enemy.Combat);
+            }
+
+            if (state.Arena.Enemy != null && !state.Arena.Enemy.Combat.IsAlive)
+            {
+                Draw(20, 20, "The enemy dies!");
+                Draw(20, 22, $"Reward: {state.Arena.Enemy.XpReward} XP");
             }
         }
 

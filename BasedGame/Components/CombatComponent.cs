@@ -10,7 +10,7 @@ internal class CombatComponent
     }
 
     internal int Health { get => _health; set => _health = Math.Clamp(value, 0, MaxHealth); }
-    internal int MaxHealth { get; set; } = 100;
+    internal int MaxHealth { get; set; } = 10;
     internal int Strength { get; set; } = 1;
     internal bool IsAlive => Health > 0;
 

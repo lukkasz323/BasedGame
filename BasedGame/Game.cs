@@ -9,7 +9,7 @@ internal class Game
 
     internal Game()
     {
-        State.Battle = new(State.Player.Combat);
+        State.Arena.StartNewBattle();
     }
 
     internal void Run()

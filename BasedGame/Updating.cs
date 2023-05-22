@@ -9,23 +9,19 @@ internal static class Updating
     {
         bool shouldGameContinue;
 
-        ConsoleKeyInfo input = Console.ReadKey(true);
-        shouldGameContinue = Frame(state);
+        shouldGameContinue = Frame(state, Console.ReadKey(true));
 
         return shouldGameContinue;
     }
 
-    private static bool Frame(GameState state)
+    private static bool Frame(GameState state, ConsoleKeyInfo input)
     {
-        if (state.Battle != null)
-        {
-            state.Battle.NextTurn();
-            if (!state.Player.Combat.IsAlive)
-            {
-                return false;
-            }
-        }
+        state.Arena.Update(state.Player);
 
+        if (!state.Player.Combat.IsAlive)
+        {
+            return false;
+        }
         return true;
     }
 }
