@@ -14,10 +14,11 @@ internal class Game
 
     internal void Run()
     {
+        Drawing.DrawGame(State);
         while (ShouldContinue)
         {
-            Drawing.DrawGame(State);
             ShouldContinue = Updating.UpdateGame(State);
+            Drawing.DrawGame(State);
         }
     }
 }
