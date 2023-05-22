@@ -43,10 +43,13 @@ internal static class Drawing
             static void DrawBattle(GameState state)
             {
                 Draw(10, 6, "Player");
-                DrawCombatant(10, 7, state.Player.Combat);
+                DrawCombatant(10, 8, state.Player.Combat);
 
-                Draw(30, 6, "Enemy");
-                DrawCombatant(30, 7, state.Enemy.Combat);
+                if (state.Battle != null)
+                {
+                    Draw(30, 6, "Enemy");
+                    DrawCombatant(30, 8, state.Battle.EnemyCombat);
+                }
             }
 
             static void DrawCombatant(int x, int y, CombatComponent combat)
