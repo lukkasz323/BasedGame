@@ -27,12 +27,16 @@ internal class Player : Entity
     {
         Combat.MaxHealth = 1000;
         Combat.Health = 1000;
-        Combat.Strength = 2;
+        Combat.Strength = 1;
     }
 
     private void LevelUp()
     {
         _xp -= MaxXp;
         MaxXp *= 2;
+        Level += 1;
+
+        Combat.Strength += 1;
+        Combat.MaxHealth *= 2;
     }
 }
