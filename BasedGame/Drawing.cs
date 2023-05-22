@@ -7,10 +7,12 @@ internal static class Drawing
 {
     internal static void DrawGame(GameState state)
     {
-        ClearAndSyncConsole(state.Settings);
-        DrawScene(state);
+        SyncAndClearConsole(state.Settings);
 
-        static void ClearAndSyncConsole(GameSettings settings)
+        DrawHUD(state);
+        DrawBattle(state);
+
+        static void SyncAndClearConsole(GameSettings settings)
         {
             int w = settings.Width;
             int h = settings.Height;
@@ -27,78 +29,72 @@ internal static class Drawing
             }
         }
 
-        static void DrawScene(GameState state)
+        static void DrawHUD(GameState state)
         {
-            DrawHUD(state);
-            DrawBattle(state);
+            DrawLine(1, 0, state.Settings.Width - 2, '=');
+            Draw(5, 2, $"[ Level: {state.Player.Level} | XP: {state.Player.Xp}/{state.Player.MaxXp} ]");
+            DrawLine(1, 4, state.Settings.Width - 2, '=');
+            DrawLine(1, state.Settings.Height - 2, state.Settings.Width - 2, '=');
+        }
 
-            static void DrawHUD(GameState state)
+        static void DrawBattle(GameState state)
+        {
+            Draw(10, 6, "Player");
+            DrawCombatant(10, 8, state.Player.Combat);
+
+            if (state.Battle != null)
             {
-                DrawLine(1, 0, state.Settings.Width - 2, '=');
-                Draw(5, 2, $"[ Level: {state.Player.Level} | XP: {state.Player.Xp}/{state.Player.MaxXp} ]");
-                DrawLine(1, 4, state.Settings.Width - 2, '=');
-                DrawLine(1, state.Settings.Height - 2, state.Settings.Width - 2, '=');
+                Draw(30, 6, "Enemy");
+                DrawCombatant(30, 8, state.Battle.EnemyCombat);
             }
+        }
 
-            static void DrawBattle(GameState state)
+        static void DrawCombatant(int x, int y, CombatComponent combat)
+        {
+            Draw(x, y, $"HP: {combat.Health}/{combat.MaxHealth}");
+            Draw(x, y + 1, $"STR: {combat.Strength}");
+        }
+
+        static void DrawLine(int startX, int startY, int width, char ch)
+        {
+            for (int x = startX; x < width + startX; x++)
             {
-                Draw(10, 6, "Player");
-                DrawCombatant(10, 8, state.Player.Combat);
-
-                if (state.Battle != null)
-                {
-                    Draw(30, 6, "Enemy");
-                    DrawCombatant(30, 8, state.Battle.EnemyCombat);
-                }
+                Draw(x, startY, ch);
             }
+        }
 
-            static void DrawCombatant(int x, int y, CombatComponent combat)
-            {
-                Draw(x, y, $"HP: {combat.Health}/{combat.MaxHealth}");
-                Draw(x, y + 1, $"STR: {combat.Strength}");
-            }
-
-            static void DrawLine(int startX, int startY, int width, char ch)
+        static void DrawArea(int startX, int startY, int width, int height, char ch)
+        {
+            for (int y = startY; y < height + startY; y++)
             {
                 for (int x = startX; x < width + startX; x++)
                 {
-                    Draw(x, startY, ch);
+                    Draw(x, y, ch);
                 }
             }
+        }
 
-            static void DrawArea(int startX, int startY, int width, int height, char ch)
+        static void DrawBorder(int startX, int startY, int width, int height, char ch)
+        {
+            for (int y = startY; y < (height + startY); y++)
             {
-                for (int y = startY; y < height + startY; y++)
+                for (int x = startX; x < (width + startX); x++)
                 {
-                    for (int x = startX; x < width + startX; x++)
+                    if (x == startX ||
+                        y == startY ||
+                        x == width - 1 ||
+                        y == height - 1)
                     {
                         Draw(x, y, ch);
                     }
                 }
             }
+        }
 
-            static void DrawBorder(int startX, int startY, int width, int height, char ch)
-            {
-                for (int y = startY; y < (height + startY); y++)
-                {
-                    for (int x = startX; x < (width + startX); x++)
-                    {
-                        if (x == startX ||
-                            y == startY ||
-                            x == width - 1 ||
-                            y == height - 1)
-                        {
-                            Draw(x, y, ch);
-                        }
-                    }
-                }
-            }
-
-            static void Draw(int x, int y, object value)
-            {
-                Console.SetCursorPosition(x, y);
-                Console.Write(value);
-            }
+        static void Draw(int x, int y, object value)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(value);
         }
     }
 }
